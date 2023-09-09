@@ -15,6 +15,12 @@ import django_heroku
 # from decouple import config
 import dj_database_url
 
+import environ
+
+env = environ.Env()
+
+environ.Env.read_env()
+
 # SECRET_KEY = config('SECRET_KEY')
 
 
@@ -89,6 +95,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+} 
+DATABASES = {'default': dj_database_url.parse(env('DATABASE_URL'))
 }
 
 """
@@ -136,6 +144,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles'),]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
